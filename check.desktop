@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Check_boot
+Exec=gnome-terminal -- /home/your_user_name/check.sh
+Comment=Checks
+X-GNOME-Autostart-enabled=true
