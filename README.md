@@ -22,10 +22,11 @@ My workarounds to detect the evil maid attack.</br>
     With that, if someone will do an evil maid attack we'll notice it and since the script is configured to not power on internet unitil all checks are passed, the grabbed password will not be transmitted. There're other things to consider.... Two at least: uefi malware and ssd or hdd with a malware in the firmware. So here's my effort trying to mitigate the impossible.
 </br>
 </br>
-   1) check all the ssd infos like Model Number, Serial Number and Firmware Revision etc...</br>
-   2) check bios infos like Version, Release Date, Runtime Size, ROM Size etc...</br>
-   3) check tpm pcr_0 that is where bios and extensions are located</br>
-   4) check the tpm slot that have the initrd hash</br>
+
+   - extract ssd infos like Model Number, Serial Number, Firmware Revision etc... and compare them every startup.
+   - extract bios infos like Version, Release Date, Runtime Size, ROM Size etc... and compare them every startup.
+   - extract the hashes from pcr_0 (tpm) that is where bios and extensions are located and compare them every startup.
+   - check the tpm slot that have the initrd hash and compare it every startup.
 
 # Extras
 This script do other things too:
@@ -40,15 +41,15 @@ Download the script. Open it and change the varibales as you need.</br>
 
       efipartition=/dev/sda? # put your efi partition
       ssd=/dev/sda # put your hdd or ssd name
-      ethernet=eth0
-      wireless=wlan0
+      ethernet=eth0 # put your network ethernet interface name 
+      wireless=wlan0 # put your wireless interface name
       
 If you want the old eth0 and wlan0 type on terminal:</br>
 
        sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub && sudo update-grub 
 
-If you have changed the network inerfaces name please reboot before run the script.
-When the script start it install all the dependencies and create the hashes.</br>
+If you have changed the network inerfaces with the command above please reboot before run the script.</br>
+When it start, it install all the dependencies and create the hashes.</br>
 Configure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change the path of check.sh) Enjoy.
 
 # This is my currently setup not a guide, feel free to follow or not. Dual boot windows & linux both encrypted.
