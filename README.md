@@ -5,8 +5,7 @@
 2) Bios </br>
 Set a power-on and bios password, they can be easily bypassed (see bios-pw.org) but if someone will bypass them with a master key, at the next boot you will notice the absence of the prompt that ask for the password.
 
-3) Encryption</br>
-Use veracrypt for windows and luks for linux. To make a dual boot, first install windows.
+# If you don't want dual boot skip to --> Install Linux
 
 # Install Windows</br>
 - we need to create two partitions, one for efi and one for c.
