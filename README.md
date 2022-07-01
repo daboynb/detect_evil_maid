@@ -74,7 +74,13 @@ This script do other things too:
  The commands that update the system and install the dependencies are for debian based distros, if you have something else replace them with your package manager.
 
 # Running
-Download the script and run it, it will install the dependencies and create the hashes. Then configure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change it like you need) Enjoy.
+Download the script. Open it and changes the varibales as you need.</br>
+
+      -efipartition=/dev/sda? #put your efi partition
+      -ssd=/dev/sda #put your hdd or ssd name
+      
+Then run it, it will install the dependencies and create the hashes.</br>
+Configure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change the path of check.sh) Enjoy.
 
 # Know bugs
 On windows, sometimes the search stop working when it boot (problem related to veracrypt), to fix that error run on an elevated cmd :
