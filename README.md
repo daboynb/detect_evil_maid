@@ -63,7 +63,8 @@ My workarounds.</br>
 </br>
    1) check all the ssd infos like Model Number, Serial Number and Firmware Revision etc...</br>
    2) check bios infos like Version, Release Date, Runtime Size, ROM Size etc...</br>
-   3) check tpm pcr_0 that is where bios and extensions are located and just because we can... pcr_8 where tpm store the hash on initrd (I know... the script already check it).</br>
+   3) check tpm pcr_0 that is where bios and extensions are located</br>
+   4) check the tpm slot that have the initrd hash</br>
 
 # Extras
 This script do other things too:
