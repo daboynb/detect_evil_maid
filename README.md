@@ -71,6 +71,13 @@ This script do other things too:
 # Running
 Download the script and run it, it will install the dependencies and create the hashes. Then cnfigure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change it like you need) Enjoy.
 
+# Know bugs
+On windows, sometimes the search stop working when it boot (problem related to veracrypt), to fix that error run on an elevated cmd :
+
+  - net stop wsearch /y
+  - net start wsearch 
+
+Or make a bat file an run it as admin everytime you need.
 
 # Credits for tpm dump
 https://github.com/9elements/tpmtool for the extraction of the tpm hashes
