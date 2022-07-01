@@ -5,8 +5,9 @@ To run at startup and enable the old network interfaces:
 - sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub                                                                                           
 comment
 #------------------------------------------Pre-steps---------------------------------------------------------------#
-# Enable leds
-xset led 3
+
+# Enable leds, I need it on my keyboard... uncomment the next line if you need it too
+# xset led 3
 
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
