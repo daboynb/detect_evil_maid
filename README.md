@@ -1,9 +1,15 @@
 # Pre-requisistes
 
-1) You'll need a pc with: uefi, secure boot and tpm enabled.</br>
+1) You'll need a pc with:</br>
+   - uefi enabled
+   - secure boot enabled
+   - tpm enabled</br>
  
-2) Bios </br>
-Set a power-on and bios password, they can be easily bypassed (see bios-pw.org) but if someone will bypass them with a master key, at the next boot you will notice the absence of the prompt that ask for the password.
+2) Set in the bios </br>
+   - power-on passowrd
+   - bios password</br>
+
+They can be easily bypassed (see bios-pw.org) but if someone will bypass them with a master key, at the next boot you will notice the absence of the prompt that ask for the password.
 
 # If you don't want dual boot skip to --> Install Linux
 
@@ -29,7 +35,7 @@ Your choiche to follow or not. Less unencrypted partition we have, less are the 
 - on diskpart type: list partition (to deect wich one is the third created)
 - on diskpart type: select partition x (where x is the number of the recovery partition grabbed from the command list partition)
 - on diskpart type: delete partition override
-- now if all goes well you'll remain wih only two partitions, c and efi
+- now if all went well you'll remain with only two partitions, c and efi
 - install veracrypt, chose encrypt the windows system partition and complete the setup
 
 # Install Linux</br>
@@ -57,7 +63,7 @@ My workarounds.</br>
 </br>
    1) check all the ssd infos like Model Number, Serial Number and Firmware Revision etc...</br>
    2) check bios infos like Version, Release Date, Runtime Size, ROM Size etc...</br>
-   3) check tpm pcr_0 that is where bios and extensions are located and pcr_8 where tpm store the hash on initrd.</br>
+   3) check tpm pcr_0 that is where bios and extensions are located and just because we can... pcr_8 where tpm store the hash on initrd (I know... the script already check it).</br>
 
 # Extras
 This script do other things too:
@@ -68,7 +74,7 @@ This script do other things too:
  The commands that update the system and install the dependencies are for debian based distros, if you have something else replace them with your package manager.
 
 # Running
-Download the script and run it, it will install the dependencies and create the hashes. Then cnfigure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change it like you need) Enjoy.
+Download the script and run it, it will install the dependencies and create the hashes. Then configure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change it like you need) Enjoy.
 
 # Know bugs
 On windows, sometimes the search stop working when it boot (problem related to veracrypt), to fix that error run on an elevated cmd :
