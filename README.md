@@ -1,4 +1,6 @@
-# Pre-requisistes
+# This is my currently setup not a guide, feel free to follow or not
+
+   - Pre-requisistes
 
 1) You'll need a pc with:</br>
    - uefi enabled
