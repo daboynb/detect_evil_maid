@@ -13,7 +13,7 @@ They can be easily bypassed (see bios-pw.org) but if someone will bypass them wi
 
 3) Linux installation with encrypted /.</br>
 
-# Consideration</br>
+# Considerations</br>
 On a classic setup, or the one above we have two unencrypted partitions, /boot and /efi.</br>
 My workarounds to detect the evil maid attack.</br>
 
