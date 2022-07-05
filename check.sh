@@ -113,7 +113,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the bios infos and compare them to the old txt
 echo "Extract bios infos"
-sudo dmidecode --type bios >/dev/null | sudo tee ./bios_info_new.txt >/dev/null
+sudo dmidecode --type bios | sudo tee ./bios_info_new.txt >/dev/null
 sudo tail -n +2 '/sec/bios_info_new.txt' | sudo tee temp.tmp && sudo mv temp.tmp '/sec/bios_info_new.txt' >/dev/null
 if diff -s bios_info_orig.txt bios_info_new.txt
 then
@@ -207,7 +207,7 @@ echo "//////////////////////////////////////////////////////////////////////////
 # Generate the new sha512sum because some updates can change some values
 echo "Extract bios infos"
 sudo rm /sec/bios_info_orig.txt
-sudo dmidecode --type bios >/dev/null | sudo tee ./bios_info_orig.txt >/dev/null
+sudo dmidecode --type bios | sudo tee ./bios_info_orig.txt >/dev/null
 sudo tail -n +2 '/sec/bios_info_orig.txt' | sudo tee temp.tmp && sudo mv temp.tmp '/sec/bios_info_orig.txt' >/dev/null
 
 #Generate the new sha512sum because some updates can change some values
