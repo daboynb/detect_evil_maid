@@ -19,16 +19,14 @@ sudo dpkg -l | grep -qw dmidecode || sudo apt-get install dmidecode -y
 sudo dpkg -l | grep -qw lshw || sudo apt-get install lshw -y
 
 tpm=$(sudo dpkg -l | grep -E  tpmtool)
-
+{
 if [[ -z "$tpm" ]]; then
     wget https://github.com/9elements/tpmtool/releases/download/v3/tpmtool_3_linux_amd64.deb
     sudo dpkg -i tpmtool_3_linux_amd64.deb
     sudo apt-get install -f -y
     sudo rm tpmtool_3_linux_amd64.deb
-    else
-    echo "Tpmtool alreay installed"
 fi
-
+}
 #------------------------------------------Variables declaration---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 
@@ -203,7 +201,6 @@ echo "//////////////////////////////////////////////////////////////////////////
 echo "Create sha512sum of the /boot partition"
 sudo find /boot -type f -exec sha512sum "{}" + | sudo tee ./sha512sum_list_boot_orig.txt > /dev/null 2>&1
 
-echo "////////////////////////////////////////////////////////////////////////////"
 # Generate the new sha512sum because some updates can change some values
 echo "Extract bios infos"
 sudo rm /sec/bios_info_orig.txt
@@ -220,6 +217,7 @@ echo "Extract tpm infos"
 sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' | sudo tee ./tpm.bootguard_orig.txt > /dev/null 2>&1
 sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" | sudo tee ./tpm.kernel_orig.txt > /dev/null 2>&1
 
+echo "////////////////////////////////////////////////////////////////////////////"
 #------------------------------------------Disable Internet at boot---------------------------------------------------------------#
 # At startup internet will not be up
 nmservice=$(sudo systemctl is-enabled NetworkManager.service)
