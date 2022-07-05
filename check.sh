@@ -78,7 +78,7 @@ fi
      echo "ssd_orig exist"
  else
    echo "Extract ssd infos"
-   sudo lshw -class disk | grep /dev/sda -A 5 -B 5 > ./ssd_orig.txt
+   sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_orig.txt
  fi
 
  # Check if the orginal file containing the tpm_pcr_0 hashes is present otherwise it will create one
@@ -126,7 +126,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the ssd infos and compare them to the old txt
 echo "Extract ssd infos"
-sudo lshw -class disk | grep /dev/sda -A 5 -B 5 > ./ssd_new.txt
+sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_new.txt
 if diff -s ssd_orig.txt ssd_new.txt
 then
     figlet SSD MATCH
@@ -213,7 +213,7 @@ sudo tail -n +2 '/sec/bios_info_orig.txt' > temp.tmp && sudo mv temp.tmp '/sec/b
 #Generate the new sha512sum because some updates can change some values
 echo "Extract ssd infos"
 sudo rm /sec/ssd_orig.txt
-sudo lshw -class disk | grep /dev/sda -A 5 -B 5 > ./ssd_orig.txt
+sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_orig.txt
 
 #Generate the new tpm_pcr_0 because some updates can change some values
 echo "Extract tpm infos"
