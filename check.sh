@@ -32,9 +32,6 @@ fi
 #------------------------------------------Variables declaration---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 
-# Partition variables, change like /dev/sdax where x is number of the desired partition
-efipartition=/dev/sda1
-
 #Ssd variable
 ssd=/dev/sda
 
