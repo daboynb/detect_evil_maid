@@ -39,7 +39,6 @@ This script do other things too:
 # Running
 Download the script. Open it and change the varibales as you need.</br>
 
-      efipartition=/dev/sda? # put your efi partition
       ssd=/dev/sda # put your hdd or ssd name
       ethernet=eth0 # put your network ethernet interface name 
       wireless=wlan0 # put your wireless interface name
