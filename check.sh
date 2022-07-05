@@ -1,9 +1,9 @@
 #!/bin/bash
-<<comment
-To run at startup and enable the old network interfaces: 
-- download check.desktop, edit with your username and and copy into ~/.config/autostart  
-- sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub                                                                                           
-comment
+
+# To run at startup and enable the old network interfaces: 
+# - download check.desktop, edit with your username and and copy into ~/.config/autostart  
+# - sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub                                                                                           
+
 #------------------------------------------Pre-steps---------------------------------------------------------------#
 
 # Enable leds, I need it on my keyboard... uncomment the next line if you need it too
@@ -59,7 +59,7 @@ echo "Checking folders and files"
      echo "sha512sum_list_orig exist"
  else
     echo "List sha512sum of /boot and /efi partition"
-    sudo find /boot -type f -exec sha512sum "{}" + > ./sha512sum_list_boot_orig.txt
+    sudo find /boot -type f -exec sha512sum "{}" + | sudo tee ./sha512sum_list_boot_orig.txt
 fi
 
  # Check if the orginal file containing the bios infos is present otherwise it will create one
@@ -68,8 +68,8 @@ fi
      echo "bios_info_orig exist"
  else
    echo "Extract bios infos"
-   sudo dmidecode --type bios > ./bios_info_orig.txt
-   sudo tail -n +2 '/sec/bios_info_orig.txt' > temp.tmp && sudo mv temp.tmp '/sec/bios_info_orig.txt'
+   sudo dmidecode --type bios | sudo tee ./bios_info_orig.txt
+   sudo tail -n +2 '/sec/bios_info_orig.txt' | sudo tee temp.tmp && sudo mv temp.tmp '/sec/bios_info_orig.txt'
  fi
 
  # Check if the orginal file containing the ssd infos is present otherwise it will create one
@@ -78,7 +78,7 @@ fi
      echo "ssd_orig exist"
  else
    echo "Extract ssd infos"
-   sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_orig.txt
+   sudo lshw -class disk | grep $ssd -A 5 -B 5 | sudo tee ./ssd_orig.txt
  fi
 
  # Check if the orginal file containing the tpm_pcr_0 hashes is present otherwise it will create one
@@ -87,7 +87,7 @@ fi
      echo "tpm.bootguard_orig exist"
  else
    echo "Extract tpm infos"
-   sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' > ./tpm.bootguard_orig.txt
+   sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' | sudo tee ./tpm.bootguard_orig.txt
  fi
  # Check if the orginal file containing the tpm_pcr_8 hashes is present otherwise it will create one
   if [ -f /sec/tpm.kernel_orig.txt ]  
@@ -95,13 +95,13 @@ fi
      echo "tpm.kernel_orig exist"
  else
    echo "Extract tpm infos"
-   sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" > ./tpm.kernel_orig.txt
+   sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" | sudo tee ./tpm.kernel_orig.txt
  fi
 #------------------------------------------Compare old to new---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 # Calculate sha512sum of the /boot and /efi partitions files and compare the new txt with the old one
 echo "Checking for / boot and /efi partition changes"
-sudo find /boot -type f -exec sha512sum "{}" + > ./sha512sum_list_boot_new.txt
+sudo find /boot -type f -exec sha512sum "{}" + | sudo tee ./sha512sum_list_boot_new.txt
 if diff -s ./sha512sum_list_boot_orig.txt ./sha512sum_list_boot_new.txt
 then
     figlet "/BOOT & /EFI MATCH"
@@ -113,8 +113,8 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the bios infos and compare them to the old txt
 echo "Extract bios infos"
-sudo dmidecode --type bios > ./bios_info_new.txt
-sudo tail -n +2 '/sec/bios_info_new.txt' > temp.tmp && sudo mv temp.tmp '/sec/bios_info_new.txt'
+sudo dmidecode --type bios | sudo tee ./bios_info_new.txt
+sudo tail -n +2 '/sec/bios_info_new.txt' | sudo tee temp.tmp && sudo mv temp.tmp '/sec/bios_info_new.txt'
 if diff -s bios_info_orig.txt bios_info_new.txt
 then
     figlet BIOS MATCH
@@ -126,7 +126,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the ssd infos and compare them to the old txt
 echo "Extract ssd infos"
-sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_new.txt
+sudo lshw -class disk | grep $ssd -A 5 -B 5 | sudo tee ./ssd_new.txt
 if diff -s ssd_orig.txt ssd_new.txt
 then
     figlet SSD MATCH
@@ -138,7 +138,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the tpm_pcr_0 hashes and compare them to the old txt
 echo "Extract tpm infos"
-sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' > ./tpm.bootguard_new.txt 
+sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' | sudo tee ./tpm.bootguard_new.txt 
 
 if diff -s tpm.bootguard_orig.txt tpm.bootguard_new.txt 
 then
@@ -151,7 +151,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the tpm_pcr_8 hashes and compare them to the old txt
 echo "Extract tpm infos"
-sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" > ./tpm.kernel_new.txt
+sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" | sudo tee ./tpm.kernel_new.txt
 
 if diff -s tpm.kernel_orig.txt tpm.kernel_new.txt 
 then
@@ -201,24 +201,24 @@ sudo apt-get autoremove --purge -y
 echo "////////////////////////////////////////////////////////////////////////////"
 # Generate the new sha512 list because some updates can change some values
 echo "Create sha512sum of the /boot partition"
-sudo find /boot -type f -exec sha512sum "{}" + > ./sha512sum_list_boot_orig.txt
+sudo find /boot -type f -exec sha512sum "{}" + | sudo tee ./sha512sum_list_boot_orig.txt
 
 echo "////////////////////////////////////////////////////////////////////////////"
 # Generate the new sha512sum because some updates can change some values
 echo "Extract bios infos"
 sudo rm /sec/bios_info_orig.txt
-sudo dmidecode --type bios > ./bios_info_orig.txt
-sudo tail -n +2 '/sec/bios_info_orig.txt' > temp.tmp && sudo mv temp.tmp '/sec/bios_info_orig.txt'
+sudo dmidecode --type bios | sudo tee ./bios_info_orig.txt
+sudo tail -n +2 '/sec/bios_info_orig.txt' | sudo tee temp.tmp && sudo mv temp.tmp '/sec/bios_info_orig.txt'
 
 #Generate the new sha512sum because some updates can change some values
 echo "Extract ssd infos"
 sudo rm /sec/ssd_orig.txt
-sudo lshw -class disk | grep $ssd -A 5 -B 5 > ./ssd_orig.txt
+sudo lshw -class disk | grep $ssd -A 5 -B 5 | sudo tee ./ssd_orig.txt
 
 #Generate the new tpm_pcr_0 because some updates can change some values
 echo "Extract tpm infos"
-sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' > ./tpm.bootguard_orig.txt
-sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" > ./tpm.kernel_orig.txt
+sudo tpmtool eventlog dump | grep -A 3 'PCR: 0' | sudo tee ./tpm.bootguard_orig.txt
+sudo tpmtool eventlog dump | grep -E -A 1 -B 2 "initrd /" | sudo tee ./tpm.kernel_orig.txt
 
 #------------------------------------------Disable Internet at boot---------------------------------------------------------------#
 # At startup internet will not be up
