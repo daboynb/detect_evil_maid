@@ -7,7 +7,7 @@
 #------------------------------------------Pre-steps---------------------------------------------------------------#
 
 # Enable leds, I need it on my keyboard... uncomment the next line if you need it too
-# xset led 3
+xset led 3
 
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
@@ -105,7 +105,8 @@ then
     figlet "/BOOT & /EFI MATCH"
     sudo rm -rf /sec/sha512sum_list_boot_new.txt
 else
-    read -r -p "DATA GOT TAMPERED, PRESS ENTER TO CONTINUE AND INGORE IT. If you have booted windows is totally normal that it's entries are different"
+   echo "If you have booted windows is totally normal that it's entries are different"
+    read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT."
 fi
 
 echo "////////////////////////////////////////////////////////////////////////////"
@@ -118,7 +119,7 @@ then
     figlet BIOS MATCH
     sudo rm -rf /sec/bios_info_new.txt
 else
-    read -r -p "DATA GOT TAMPERED, PRESS ENTER TO CONTINUE AND INGORE IT"
+    read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT"
 fi
 
 echo "////////////////////////////////////////////////////////////////////////////"
@@ -130,7 +131,7 @@ then
     figlet SSD MATCH
     sudo rm -rf /sec/ssd_new.txt
 else
-    read -r -p "DATA GOT TAMPERED, PRESS ENTER TO CONTINUE AND INGORE IT"
+    read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT"
 fi
 
 echo "////////////////////////////////////////////////////////////////////////////"
@@ -143,7 +144,7 @@ then
     figlet PCR 0 MATCH
     sudo rm -rf /sec/tpm.bootguard_new.txt 
 else
-    read -r -p "DATA GOT TAMPERED, PRESS ENTER TO CONTINUE AND INGORE IT"
+    read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT"
 fi
 
 echo "////////////////////////////////////////////////////////////////////////////"
@@ -155,8 +156,9 @@ if diff -s tpm.kernel_orig.txt tpm.kernel_new.txt
 then
     figlet PCR 8 MATCH
     sudo rm -rf /sec/tpm.kernel_new.txt 
-else
-    read -r -p "DATA GOT TAMPERED, PRESS ENTER TO CONTINUE AND INGORE IT"
+else 
+    echo "*Attention*: If you have upgraded the kernel, this check will fail on first reboot, because the TPM-based hash will have changed. This check will pass again after an additional reboot."
+    read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT."
 fi
    
 
