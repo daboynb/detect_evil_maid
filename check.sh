@@ -7,7 +7,7 @@
 #------------------------------------------Pre-steps---------------------------------------------------------------#
 
 # Enable leds, I need it on my keyboard... uncomment the next line if you need it too
-xset led 3
+#xset led 3
 
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
