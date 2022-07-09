@@ -105,7 +105,7 @@ then
     figlet "/BOOT & /EFI MATCH"
     sudo rm -rf /sec/sha512sum_list_boot_new.txt
 else
-   echo "If you have booted windows is totally normal that it's entries are different"
+    echo "If you have booted windows is totally normal that it's entries are different"
     read -r -p "DATA WAS TAMPERED, PRESS ENTER TO CONTINUE AND IGNORE IT."
 fi
 
