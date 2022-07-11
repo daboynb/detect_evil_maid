@@ -9,6 +9,9 @@
 # Enable leds, I need it on my keyboard... uncomment the next line if you need it too
 #xset led 3
 
+echo "Running apt update... wait"
+sudo apt-get update > /dev/null 2>&1
+ 
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
