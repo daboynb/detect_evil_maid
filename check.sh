@@ -12,6 +12,12 @@
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
+# Run apt update
+if ping -c1 www.google.com > /dev/null 2>&1; then
+    echo "updating"
+    sudo apt update > /dev/null 2>&1
+fi
+
 # Check requirements
 sudo dpkg -l | grep -qw macchanger || sudo apt-get install macchanger -y
 sudo dpkg -l | grep -qw figlet || sudo apt-get install figlet -y
