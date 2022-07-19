@@ -23,6 +23,7 @@ sudo dpkg -l | grep -qw macchanger || sudo apt-get install macchanger -y
 sudo dpkg -l | grep -qw figlet || sudo apt-get install figlet -y
 sudo dpkg -l | grep -qw dmidecode || sudo apt-get install dmidecode -y
 sudo dpkg -l | grep -qw lshw || sudo apt-get install lshw -y
+sudo dpkg -l | grep -qw fwupd || sudo apt-get install fwupd -y
 
 tpm=$(sudo dpkg -l | grep -E  tpmtool)
 {
@@ -231,6 +232,8 @@ sudo apt-get upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get install -f -y
 sudo apt-get autoremove --purge -y
+sudo fwupdmgr refresh
+sudo fwupdmgr update -y
 
 #------------------------------------------Recalculate hashes and store on txt---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
