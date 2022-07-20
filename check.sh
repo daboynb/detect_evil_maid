@@ -37,7 +37,7 @@ fi
 #------------------------------------------Variables declaration---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 
-#Ssd variable
+# Ssd or hdd variable
 ssd=/dev/sda
 
 # Network interfaces variables, change like you need
