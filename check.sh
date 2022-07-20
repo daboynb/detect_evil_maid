@@ -205,7 +205,7 @@ echo "Bringing up Network Manager"
 sudo systemctl start NetworkManager.service
 sleep 3
 
-# Check if ntwork interface exist, spoof the mac adcflddresses and re-enable the devices
+# Check if ntwork interface exist, spoof the mac addresses and re-enable the devices
 if test -e /sys/class/net/$ethernet/device; then
         sudo ifconfig $ethernet down
         sudo macchanger -r $ethernet
