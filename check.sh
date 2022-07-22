@@ -7,7 +7,7 @@
 #------------------------------------------Pre-steps---------------------------------------------------------------#
 
 # Enable leds, I need it on my keyboard... uncomment the next line if you need it too
-#xset led 3
+# xset led 3
  
 # Ask for sudo privileges
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
@@ -37,7 +37,7 @@ fi
 #------------------------------------------Variables declaration---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 
-# Ssd or hdd variable
+# Ssd variable
 ssd=/dev/sda
 
 # Network interfaces variables, change like you need
@@ -205,7 +205,7 @@ echo "Bringing up Network Manager"
 sudo systemctl start NetworkManager.service
 sleep 3
 
-# Check if ntwork interface exist, spoof the mac addresses and re-enable the devices
+# Check if ntwork interface exist, spoof the mac adcflddresses and re-enable the devices
 if test -e /sys/class/net/$ethernet/device; then
         sudo ifconfig $ethernet down
         sudo macchanger -r $ethernet
@@ -232,8 +232,14 @@ sudo apt-get upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get install -f -y
 sudo apt-get autoremove --purge -y
+pkg=flatpak
+which $pkg > /dev/null 2>&1
+if [ $? == 0 ]
+then
+flatpak update -y
+fi
 sudo fwupdmgr refresh
-sudo fwupdmgr update -y
+sudo fwupdmgr update 
 
 #------------------------------------------Recalculate hashes and store on txt---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
