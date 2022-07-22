@@ -37,7 +37,7 @@ fi
 #------------------------------------------Variables declaration---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 
-# Ssd variable
+# Ssd or hdd variable
 ssd=/dev/sda
 
 # Network interfaces variables, change like you need
@@ -205,7 +205,7 @@ echo "Bringing up Network Manager"
 sudo systemctl start NetworkManager.service
 sleep 3
 
-# Check if ntwork interface exist, spoof the mac adcflddresses and re-enable the devices
+# Check if ntwork interface exist, spoof the mac addresses and re-enable the devices
 if test -e /sys/class/net/$ethernet/device; then
         sudo ifconfig $ethernet down
         sudo macchanger -r $ethernet
@@ -239,7 +239,7 @@ then
 flatpak update -y
 fi
 sudo fwupdmgr refresh
-sudo fwupdmgr update 
+sudo fwupdmgr update -y
 
 #------------------------------------------Recalculate hashes and store on txt---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
