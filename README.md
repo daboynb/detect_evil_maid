@@ -18,6 +18,7 @@ On a classic setup, or the one above we have two unencrypted partitions, /boot a
 My workarounds to detect the evil maid attack.</br>
 
   1) The shasum of the partitions dump change every reboot, so I've decided to check the sha512 of every file in the /boot and /efi partition and compare them every startup. Note -> if you start windows, the script will detect the changes in the windows entries, I personally want it but if you don't; change the first check to exclude the Microsoft folder inside the /efi prtition. </br>
+  2) Since it calculate all files hashes inside the /boot partition, it detect if a new file got created too .... like a txt containing the password.
 </br>
     With that, if someone will do an evil maid attack we'll notice it and since the script is configured to not power on internet unitil all checks are passed, the grabbed password will not be transmitted. There're other things to consider.... Two at least: uefi malware and ssd or hdd with a malware in the firmware. So here's my effort trying to mitigate the impossible.
 </br>
