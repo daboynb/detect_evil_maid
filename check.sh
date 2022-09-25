@@ -223,6 +223,9 @@ echo "//////////////////////////////////////////////////////////////////////////
 # Ping google until the internet connetion appear
 echo "Waiting for network connection"
 while true; do ping -c1 www.google.com > /dev/null 2>&1 && break; done
+echo "Sleeping for five seconds"
+sleep 5
+echo ""
 
 echo "////////////////////////////////////////////////////////////////////////////"
 # Update the system
