@@ -223,9 +223,10 @@ echo "//////////////////////////////////////////////////////////////////////////
 # Ping google until the internet connetion appear
 echo "Waiting for network connection"
 while true; do ping -c1 www.google.com > /dev/null 2>&1 && break; done
-echo "Sleeping for five seconds"
-sleep 5
-echo ""
+while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
+sleep 1
+echo "Waiting... dpkg lock"
+done
 
 echo "////////////////////////////////////////////////////////////////////////////"
 # Update the system
