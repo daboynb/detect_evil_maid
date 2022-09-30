@@ -223,27 +223,46 @@ echo "//////////////////////////////////////////////////////////////////////////
 # Ping google until the internet connetion appear
 echo "Waiting for network connection"
 while true; do ping -c1 www.google.com > /dev/null 2>&1 && break; done
+
+echo "////////////////////////////////////////////////////////////////////////////"
+# Update the system
+# Check for dpkg lock
 while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
 sleep 1
 echo "Waiting... dpkg lock"
 done
 
-echo "////////////////////////////////////////////////////////////////////////////"
-# Update the system
+# Start the system upgrade
 echo "Updating system"
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get dist-upgrade -y
-sudo apt-get install -f -y
-sudo apt-get autoremove --purge -y
-pkg=flatpak
-which $pkg > /dev/null 2>&1
+sudo apt update
+sudo apt upgrade -y
+sudo apt dist-upgrade -y
+sudo apt autoremove --purge -y
+
+# Check if flatpak is installed and then check for updates
+flatpak=flatpak
+which $flatpak > /dev/null 2>&1
 if [ $? == 0 ]
 then
 flatpak update -y
 fi
+
+# Check if snapd is installed and then check for updates
+snapd=snapd 
+which $snapd > /dev/null 2>&1
+if [ $? == 0 ]
+then
+sudo snap refresh
+fi
+
+# Check if fwupd is installed and then check for updates
+fwupdmgr=fwupdmgr 
+which $fwupdmgr > /dev/null 2>&1
+if [ $? == 0 ]
+then
 sudo fwupdmgr refresh
 sudo fwupdmgr update -y
+fi
 
 #------------------------------------------Recalculate hashes and store on txt---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
