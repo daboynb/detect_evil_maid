@@ -17,10 +17,10 @@ They can be easily bypassed (see bios-pw.org) but if someone will bypass them wi
 On a classic setup, or the one above we have two unencrypted partitions, /boot and /efi.</br>
 My workarounds to detect the evil maid attack.</br>
 
-  1) The shasum of the partitions dump change every reboot, so I've decided to check the sha512 of every file in the /boot and /efi partition and compare them every startup. Note -> if you start windows, the script will detect the changes in the windows entries, I personally want it but if you don't; change the first check to exclude the Microsoft folder inside the /efi prtition. </br>
+  1) The shasum of the partitions dump change every reboot, so I've decided to check the sha512 of every file in the /boot and /efi partition and compare them every startup. Note -> if you start windows, the script will detect the changes in the windows entries, I personally want it but if you don't; change the first check to exclude the Microsoft folder inside the /efi partition. </br>
   2) Since it calculate all files hashes inside the /boot partition, it detect if a new file got created too .... like a txt containing the password.
 </br>
-    With that, if someone will do an evil maid attack we'll notice it and since the script is configured to not power on internet unitil all checks are passed, the grabbed password will not be transmitted. There're other things to consider.... Two at least: uefi malware and ssd or hdd with a malware in the firmware. So here's my effort trying to mitigate the impossible.
+    With that, if someone will do an evil maid attack we'll notice it and since the script is configured to not power on internet until all checks are passed, the grabbed password will not be transmitted. There're other things to consider.... Two at least: uefi malware and ssd or hdd with a malware in the firmware. So here's my effort trying to mitigate the impossible.
 </br>
 </br>
 
@@ -31,14 +31,14 @@ My workarounds to detect the evil maid attack.</br>
 
 # Extras
 This script do other things too:
-  - update the system
-  - change the mac address 
+  - updates the system
+  - changes the mac address 
   - disable internet at boot and enable it only when all checks are passed</br>
   
  The commands that update the system and install the dependencies are for debian based distros, if you have something else replace them with your package manager.
 
 # Running
-Download the script. Open it and change the varibales as you need.</br>
+Download the script. Open it and change the variables as you need.</br>
 
       ssd=/dev/sda # put your hdd or ssd name
       ethernet=eth0 # put your network ethernet interface name 
@@ -48,7 +48,7 @@ If you want the old eth0 and wlan0 type on terminal:</br>
 
        sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub && sudo update-grub 
 
-If you have changed the network inerfaces with the command above please reboot before run the script.</br>
+If you have changed the network interfaces with the command above please reboot before run the script.</br>
 When it start, it install all the dependencies and create the hashes.</br>
 Configure it to run on startup (on gnome put the check.desktop inside  ~/.config/autostart and change the path of check.sh) Enjoy.
 
@@ -67,13 +67,13 @@ Configure it to run on startup (on gnome put the check.desktop inside  ~/.config
 - close the cmd, select the c drive and tap install
 
 # Post install </br>
-This is a prsonal thing that I do, I don't like to have a windows recovery partition, instead I use a bootable usb if I need it.
-Your choiche to follow or not. Less unencrypted partition we have, less are the probabilities to have problems.
+This is a personal thing that I do, I don't like to have a windows recovery partition, instead I use a bootable usb if I need it.
+Your choice to follow or not. Less unencrypted partition we have, less are the probabilities to have problems.
 - open the disks utility, there's will be a third partition
 - open diskpart as admin
 - on diskpart type: list disk (to see all disks)
 - on diskpart type: select disk x (where x is the number of the disk where windows is installed)
-- on diskpart type: list partition (to deect wich one is the third created)
+- on diskpart type: list partition (to detect wich one is the third created)
 - on diskpart type: select partition x (where x is the number of the recovery partition grabbed from the command list partition)
 - on diskpart type: delete partition override
 - now if all went well you'll remain with only two partitions, c and efi
@@ -99,7 +99,7 @@ On windows, sometimes the search stop working when it boot (problem related to v
   - net stop wsearch /y
   - net start wsearch 
 
-Or make a bat file an run it as admin everytime you need.
+Or make a bat file an run it as admin every time you need.
 
 # Credits for tpm dump
 https://github.com/9elements/tpmtool for the extraction of the tpm hashes
