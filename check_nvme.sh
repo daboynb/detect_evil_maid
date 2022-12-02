@@ -85,7 +85,7 @@ fi
      echo "ssd_orig exist"
  else
    echo "Extract ssd infos"
-   sudo nvme id-ctrl $nvme | grep subnqn | sudo tee ./ssd_orig.txt > /dev/null 2>&1
+   sudo nvme id-ctrl $nvme| grep -A 2 'sn' | sudo tee ./ssd_orig.txt > /dev/null 2>&1
  fi
 
  # Check if the orginal file containing the tpm_pcr_0 hashes is present otherwise it will create one
@@ -146,7 +146,7 @@ fi
 echo "////////////////////////////////////////////////////////////////////////////"
 # Extract the ssd infos and compare them to the old txt
 echo "Extract ssd infos"
-sudo nvme id-ctrl $nvme | grep subnqn | sudo tee ./ssd_new.txt > /dev/null 2>&1
+sudo nvme id-ctrl $nvme| grep -A 2 'sn' | sudo tee ./ssd_new.txt > /dev/null 2>&1
 if diff -s ssd_orig.txt ssd_new.txt
 then
     figlet SSD MATCH
@@ -276,12 +276,12 @@ sudo find /boot -type f -exec sha512sum "{}" + | sudo tee ./sha512sum_list_boot_
 echo "Extract bios infos"
 sudo rm /sec/bios_info_orig.txt
 sudo dmidecode --type bios | sudo tee ./bios_info_orig.txt > /dev/null 2>&1
-sudo tail -n +2 '/sec/bios_info_orig.txt' | sudo tee temp.tmp > /dev/null 2>&1 && sudo mv temp.tmp '/sec/bios_info_orig.txt' > /dev/null 2>&1
+sudo tail -n +2 '/sec/bios_info_orig.txt' | sudo tee temp.tmp > /dev/venull 2>&1 && sudo mv temp.tmp '/sec/bios_info_orig.txt' > /dev/null 2>&1
 
 #Generate the new sha512sum because some updates can change some values
 echo "Extract ssd infos"
 sudo rm /sec/ssd_orig.txt
-sudo nvme id-ctrl $nvme | grep subnqn | sudo tee ./ssd_orig.txt > /dev/null 2>&1
+sudo nvme id-ctrl $nvme| grep -A 2 'sn' | sudo tee ./ssd_orig.txt > /dev/null 2>&1
 
 #Generate the new tpm_pcr_0 because some updates can change some values
 echo "Extract tpm infos"
