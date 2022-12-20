@@ -110,7 +110,7 @@ else
     while [ -z $prompt ];
     do read -p "DATA WAS TAMPERED! Continue (y/n)?" choice;
     case "$choice" in
-        y|Y ) echo "skipping...";break;;
+        y|Y ) echo "skipping...";sudo rm -rf /sec/bios_info_new.txt;break;;
         n|N ) exit 0;;
     esac;
     done;
@@ -129,7 +129,7 @@ else
     while [ -z $prompt ];
     do read -p "DATA WAS TAMPERED! Continue (y/n)?" choice;
     case "$choice" in
-        y|Y ) echo "skipping...";break;;
+        y|Y ) echo "skipping...";sudo rm -rf /sec/bios_info_new.txt;break;;
         n|N ) exit 0;;
     esac;
     done;
@@ -147,7 +147,7 @@ else
     while [ -z $prompt ];
     do read -p "DATA WAS TAMPERED! Continue (y/n)?" choice;
     case "$choice" in
-        y|Y ) echo "skipping...";break;;
+        y|Y ) echo "skipping...";sudo rm -rf /sec/bios_info_new.txt;break;;
         n|N ) exit 0;;
     esac;
     done;
@@ -166,7 +166,7 @@ else
     while [ -z $prompt ];
     do read -p "DATA WAS TAMPERED! Continue (y/n)?" choice;
     case "$choice" in
-        y|Y ) echo "skipping...";break;;
+        y|Y ) echo "skipping...";sudo rm -rf /sec/bios_info_new.txt;break;;
         n|N ) exit 0;;
     esac;
     done;
@@ -186,7 +186,7 @@ else
     while [ -z $prompt ];
     do read -p "DATA WAS TAMPERED! Continue (y/n)?" choice;
     case "$choice" in
-        y|Y ) echo "skipping...";break;;
+        y|Y ) echo "skipping...";sudo rm -rf /sec/bios_info_new.txt;break;;
         n|N ) exit 0;;
     esac;
     done;
