@@ -94,12 +94,7 @@ Personally I don't use a swap partition, instead I use a swap file. Your choiche
 - on terminal type: sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub
 
 # Know bugs
-On windows, sometimes the search stop working when it boots (problem related to veracrypt), to fix that error run on an elevated cmd :
-
-  - net stop wsearch /y
-  - net start wsearch 
-
-Or make a bat file an run it as admin every time you need.
+On windows, sometimes the search stop working when it boots (problem related to veracrypt), to fix that error run the bat file WinSearch_fix.bat.
 
 # Credits for tpm dump
 https://github.com/9elements/tpmtool for the extraction of the tpm hashes
