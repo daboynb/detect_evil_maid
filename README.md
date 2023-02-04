@@ -93,8 +93,8 @@ Personally I don't use a swap partition, instead I use a swap file. Your choiche
 - save the configuration and exit, at reboot you'll be able to choose linux or windows
 - on terminal type: sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub
 
-# Know bugs
-On windows, sometimes the search stop working when it boots (problem related to veracrypt), to fix that error run the bat file WinSearch_fix.bat.
+# Know bug if you use the ltsc version of windows (more privacy oriented)
+Sometimes the windows search stop working, to fix that error run the bat file named "WinSearch_fix.bat".
 
 # Credits for tpm dump
 https://github.com/9elements/tpmtool for the extraction of the tpm hashes
