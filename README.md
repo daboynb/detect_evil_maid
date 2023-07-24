@@ -36,7 +36,6 @@ My workarounds to detect the evil maid attack.</br>
 # Extras
 This script do other things too:
   - updates the system
-  - changes the mac address 
   - disables internet at boot and enables it only when all checks are passed</br>
   
  The commands that update the system and install the dependencies are for debian based distros, if you have something else replace them with your package manager.

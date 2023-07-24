@@ -19,8 +19,6 @@ if ping -c1 www.google.com > /dev/null 2>&1; then
 fi
 
 # Check requirements
-sudo dpkg -l | grep -qw macchanger || sudo apt-get install macchanger -y
-sudo dpkg -l | grep -qw net-tools || sudo apt install net-tools -y
 sudo dpkg -l | grep -qw figlet || sudo apt-get install figlet -y
 sudo dpkg -l | grep -qw dmidecode || sudo apt-get install dmidecode -y
 sudo dpkg -l | grep -qw lshw || sudo apt-get install lshw -y
@@ -191,25 +189,12 @@ else
     done;
 fi 
 
-#------------------------------------------Bring up internet and change mac address---------------------------------------------------------------#
+#------------------------------------------Bring up internet--------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 # Bring up Network Manager
 echo "Bringing up Network Manager"
 sudo systemctl start NetworkManager.service
 sleep 3
-
-# Check if ntwork interface exist, spoof the mac addresses and re-enable the devices
-if test -e /sys/class/net/$ethernet/device; then
-        sudo ifconfig $ethernet down
-        sudo macchanger -r $ethernet
-        sudo ifconfig $ethernet up
-fi
-
-if test -e /sys/class/net/$wireless/device; then
-        sudo ifconfig $wireless down
-        sudo macchanger -r $wireless
-        sudo ifconfig $wireless up 
-fi
 
 #------------------------------------------Update---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
