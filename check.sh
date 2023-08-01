@@ -189,12 +189,25 @@ else
     done;
 fi 
 
-#------------------------------------------Bring up internet--------------------------------------------------------------#
+#------------------------------------------Bring up internet and change mac address---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
 # Bring up Network Manager
 echo "Bringing up Network Manager"
 sudo systemctl start NetworkManager.service
 sleep 3
+
+# Check if ntwork interface exist, spoof the mac addresses and re-enable the devices
+if test -e /sys/class/net/$ethernet/device; then
+        sudo ip link set dev $ethernet down
+        sudo macchanger -r $ethernet
+        sudo ip link set dev $ethernet up
+fi
+
+if test -e /sys/class/net/$wireless/device; then
+        sudo ip link set dev $wireless down
+        sudo macchanger -r $wireless
+        sudo ip link set dev $wireless up
+fi
 
 #------------------------------------------Update---------------------------------------------------------------#
 echo "////////////////////////////////////////////////////////////////////////////"
