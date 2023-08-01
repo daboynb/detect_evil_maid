@@ -97,7 +97,7 @@ Personally I don't use a swap partition, instead I use a swap file. Your choiche
 - on terminal type: sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 biosdevname=0 /' /etc/default/grub  && sudo update-grub
 
 # Know bug if you use the ltsc version of windows (more privacy oriented)
-Sometimes the windows search stop working, to fix that error run the bat file named "WinSearch_fix.bat".
+If the Windows search stops working, you can fix that by running the file named 'WinSearch_fix.bat'
 
 # Credits for tpm dump
 https://github.com/9elements/tpmtool for the extraction of the tpm hashes
